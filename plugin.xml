@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-volume-control" version="0.0.1">
+    <name>Cordova volume control</name>
+    <description>Control volume and Receive volume events (iOS /Android)</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,volume,ios,buttons</keywords>
+    <js-module src="www/volumeControl.js" name="VolumeControl">
+        <clobbers target="volumeControl" />
+    </js-module>
+    <platform name="ios">
+        <header-file src="src/ios/VolumeControl.h" />
+        <source-file src="src/ios/VolumeControl.m" />
+        <config-file target="config.xml" parent="/widget">
+         <feature name="VolumeControl">
+           <param name="ios-package" value="VolumeControl" />
+         </feature>
+    </config-file>
+    </platform>
+  </plugin>
