@@ -8,6 +8,18 @@
     <js-module src="www/volumeControl.js" name="VolumeControl">
         <clobbers target="volumeControl" />
     </js-module>
+
+    <platform name="android">
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="VolumeControl">
+          <param name="android-package" value="com.cordova.volumeControl.VolumeControl"/>
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/VolumeControl.java" target-dir="src/com/cordova/volumeControl/"/>
+      <source-file src="src/android/VolumeObserver.java" target-dir="src/com/cordova/volumeControl/"/>
+    </platform>
+
     <platform name="ios">
         <header-file src="src/ios/VolumeControl.h" />
         <source-file src="src/ios/VolumeControl.m" />
