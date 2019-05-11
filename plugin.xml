@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-volume-control" version="0.0.1">
-    <name>Cordova volume control</name>
+        id="cordova-simple-volume-control" version="0.0.1">
+    <name>Cordova simple volume control</name>
     <description>Control volume and Receive volume events (iOS /Android)</description>
     <license>Apache 2.0</license>
     <keywords>cordova,volume,ios,buttons</keywords>
