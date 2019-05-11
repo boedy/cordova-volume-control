@@ -1,14 +1,14 @@
 {
-  "name":"cordova-simple-volume-control",
+  "name":"cordova-simple-volume",
   "version":"0.0.3",
   "description":"Cordova plugin which notifies when the user presses the volume buttons of the device",
   "cordova":{
-    "id":"cordova-simple-volume-control",
+    "id":"cordova-simple-volume",
     "platforms":["android","ios"]
   },
   "repository":{
     "type":"git",
-    "url":"git+https://github.com/injitools/cordova-volume-control.git"
+    "url":"git+https://github.com/injitools/cordova-simple-volume.git"
   },
   "keywords":[
     "ecosystem:cordova",
