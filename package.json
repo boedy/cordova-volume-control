@@ -1,6 +1,6 @@
 {
   "name":"cordova-simple-volume",
-  "version":"1.0.0",
+  "version":"1.0.1",
   "description":"Cordova plugin which notifies when the user presses the volume buttons of the device",
   "cordova":{
     "id":"cordova-simple-volume",
