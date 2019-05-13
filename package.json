@@ -17,10 +17,10 @@
     "volume",
     "buttons"
   ],
-  "author": "ManuelDeveloper",
+  "author": "Boudewijn Geiger",
   "license":"Apache 2.0",
   "bugs":{
-    "url":"https://github.com/manueldeveloper/cordova-plugin-volume-buttons/issues"
+    "url":"https://github.com/injitools/cordova-simple-volume/issues"
   },
-  "homepage":"https://github.com/manueldeveloper/cordova-plugin-volume-buttons/blob/master/README.md"
+  "homepage":"https://github.com/boedy/cordova-volume-control"
 }
