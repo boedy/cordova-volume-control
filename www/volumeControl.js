@@ -11,7 +11,6 @@ module.exports = {
   getVolume: function () {
     return new Promise((resolve, reject) => {
       cordova.exec((volume) => {
-        console.log("volume", volume)
         resolve(parseFloat(volume))
       }, () => {
         reject("error getting volume")

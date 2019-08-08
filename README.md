@@ -52,3 +52,10 @@ document.addEventListener("deviceready", () => {
   }
 }, false);
 ```
+
+### getVolume() example
+```js
+volumeControl.getVolume().then((vol) => {
+  console.log("Volume" , vol);
+});
+```
