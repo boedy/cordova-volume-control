@@ -1,4 +1,4 @@
-# cordova-volume-control
+# cordova-simple-volume
 Control volume and Receive volume events (iOS /Android)
 
 ### Supported Platforms
@@ -8,13 +8,14 @@ Control volume and Receive volume events (iOS /Android)
 
 ## Installation
 
-    cordova plugin add https://github.com/boedy/cordova-volume-control --save
+    cordova plugin add https://github.com/online-data-intelligence/cordova-simple-volume
 
 ### Methods
 
 - `volumeControl.init({options}, callbackVolumeChanges);` Initializes plugin
 - `volumeControl.destroy();` Unset plugin
 - `volumeControl.setVolume(float 0 <=> 1);` Set volume
+- `volumeControl.getVolume();` Get volume, returns a promise with current volume
 
 
 ### volumeControl.init options parameter
@@ -30,5 +31,37 @@ var options = {volume: 0.5, hideVolumeNotification:true};
 //init
 volumeControl.init(options, function(vol){
   console.log("Volume changed" , vol);
+});
+```
+
+### cordova ios volumedownbutton / volumeupbutton events polyfill
+```js
+document.addEventListener("deviceready", () => {
+  var curVolume = null
+  if (cordova.platformId === 'ios') {
+    volumeControl.init({}, (vol) => {
+      if (curVolume !== null) {
+        if (curVolume <= vol) {
+          document.dispatchEvent(new Event('volumedownbutton'))
+        } else {
+          document.dispatchEvent(new Event('volumeupbutton'))
+        }
+      }
+      curVolume = vol
+      console.log("Volume changed", vol);
+    });
+  }
+}, false);
+```
+
+### setVolume() example
+```js
+volumeControl.setVolume(0.5);
+```
+
+### getVolume() example
+```js
+volumeControl.getVolume().then((vol) => {
+  console.log("Volume" , vol);
 });
 ```

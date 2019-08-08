@@ -7,6 +7,8 @@ import com.cordova.volumeControl.VolumeObserver;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
+import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,49 +22,63 @@ public class VolumeControl extends CordovaPlugin {
 
         if (action.equals("initCommand")) {
             JSONObject options = data.getJSONObject(0);
-            if(options.has("volume") && this.observer == null){
+            if (options.has("volume") && this.observer == null) {
                 this.setVolume(options.getDouble("volume"));
             }
             this.init(callbackContext);
 
             return true;
-        } else if(action.equals("destroyCommand")){
+        } else if (action.equals("destroyCommand")) {
             this.destroy();
             return true;
-        } else if(action.equals("setVolumeCommand")){
+        } else if (action.equals("setVolumeCommand")) {
             double volume = data.getDouble(0);
             this.setVolume(volume);
+            return true;
+        } else if (action.equals("getVolumeCommand")) {
+            double volume = this.getVolume();
+            final PluginResult result = new PluginResult(PluginResult.Status.OK, Double.toString(volume));
+            callbackContext.sendPluginResult(result);
             return true;
         }
         return false;
 
     }
 
-    public void init(CallbackContext callbackContext){
-        if( this.observer != null){
+    public void init(CallbackContext callbackContext) {
+        if (this.observer != null) {
             return;
         }
 
-        Context context=this.cordova.getActivity().getApplicationContext();
+        Context context = this.cordova.getActivity().getApplicationContext();
         this.observer = new VolumeObserver(callbackContext, context, null);
-        context.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, this.observer);
+        context.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true,
+                this.observer);
 
     }
 
-    public void destroy(){
-        if( this.observer != null){
-            Context context=this.cordova.getActivity().getApplicationContext();
+    public void destroy() {
+        if (this.observer != null) {
+            Context context = this.cordova.getActivity().getApplicationContext();
             context.getContentResolver().unregisterContentObserver(this.observer);
             this.observer = null;
         }
     }
 
-    public void setVolume(double volume){
-        Context context=this.cordova.getActivity().getApplicationContext();
-        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    public void setVolume(double volume) {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVolume * volume) , 0);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, (int) (maxVolume * volume), 0);
+    }
+
+    public double getVolume() {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int streamVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        double volume = (double) streamVolume / (double) maxVolume;
+        return volume;
     }
 }
-

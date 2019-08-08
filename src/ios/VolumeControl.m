@@ -69,6 +69,15 @@ static void *OutputVolumeContext = &OutputVolumeContext;
 }
 
 
+- (void)getVolumeCommand:(CDVInvokedUrlCommand *)command
+{
+    float volume = self.avSession.outputVolume;
+
+    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@(volume).stringValue];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+
 - (void)startObservingVolumeChanges
 {
     [self.avSession setActive: true error:nil];
