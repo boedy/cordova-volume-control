@@ -8,13 +8,14 @@ Control volume and Receive volume events (iOS /Android)
 
 ## Installation
 
-    cordova plugin add cordova-simple-volume -S
+    cordova plugin add https://github.com/online-data-intelligence/cordova-simple-volume
 
 ### Methods
 
 - `volumeControl.init({options}, callbackVolumeChanges);` Initializes plugin
 - `volumeControl.destroy();` Unset plugin
 - `volumeControl.setVolume(float 0 <=> 1);` Set volume
+- `volumeControl.getVolume();` Get volume, returns a promise with current volume
 
 
 ### volumeControl.init options parameter
@@ -51,6 +52,11 @@ document.addEventListener("deviceready", () => {
     });
   }
 }, false);
+```
+
+### setVolume() example
+```js
+volumeControl.setVolume(0.5);
 ```
 
 ### getVolume() example
